@@ -15,10 +15,24 @@ limitations under the License.
 import django_filters
 from django.db.models import Q
 
-from utilities.filters import NameSlugSearchFilterSet
-
 from .models import Tunnel
 
+class NameSlugSearchFilterSet(django_filters.FilterSet):
+    """
+    A base class for adding the search method to models which only expose the `name` and `slug` fields
+    """
+    q = django_filters.CharFilter(
+        method='search',
+        label='Search',
+    )
+
+    def search(self, queryset, name, value):
+        if not value.strip():
+            return queryset
+        return queryset.filter(
+            models.Q(name__icontains=value) |
+            models.Q(slug__icontains=value)
+        )
 
 class TunnelFilter(NameSlugSearchFilterSet):
     """Filter capabilities for Tunnel instances."""

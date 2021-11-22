@@ -13,7 +13,7 @@ limitations under the License.
 """
 
 from django.db import models
-from ipam.models import Device
+from dcim.models import Device
 from .choices import TunnelStatusChoices, TunnelTypeChoices
 
 

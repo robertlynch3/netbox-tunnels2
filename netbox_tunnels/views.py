@@ -12,7 +12,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from utilities.views import BulkDeleteView, BulkImportView, ObjectEditView, ObjectListView
+from netbox.views.generic import BulkDeleteView, BulkImportView, ObjectEditView, ObjectListView
 
 from .filters import TunnelFilter
 from .forms import TunnelCreationForm, TunnelFilterForm, TunnelCreationCSVForm
