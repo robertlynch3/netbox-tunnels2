@@ -19,7 +19,6 @@ from .version import __version__, __min_version__
 
 class TunnelsConfig(PluginConfig):
     """This class defines attributes for the NetBox Tunnels Plugin."""
-
     name = "netbox_tunnels2"
     verbose_name = "Network Tunnels"
     version = __version__
