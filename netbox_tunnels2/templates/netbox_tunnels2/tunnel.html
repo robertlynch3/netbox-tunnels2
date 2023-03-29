@@ -1,0 +1,43 @@
+{% extends 'generic/object.html' %}
+{% block content %}
+  <div class="row mb-3">
+    <div class="col col-md-6">
+      <div class="card">
+        <h5 class="card-header">Tunnel</h5>
+        <div class="card-body">
+          <table class="table table-hover attr-table">
+            <tr>
+              <th scope="row">Name</th>
+              <td>{{ object.name }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Status</th>
+              <td>{% badge object.get_status_display bg_color=object.get_status_color %}</td>
+            </tr>
+            <tr>
+              <th scope="row">Tunnel Type</th>
+              <td>{{ object.get_tunnel_type_display }}</td>
+            </tr>
+			<tr>
+				<th scope="row">Local Address</th>
+				<td>{{ object.src_address }}</td>
+			</tr>
+			<tr>
+				<th scope="row">Remote Address</th>
+				<td>{{ object.dst_address }}</td>
+			</tr>
+			<tr>
+				<th scope="row">Pre Shared Key</th>
+				<td>{{ object.psk }}</td>
+			</tr>
+          </table>
+        </div>
+      </div>
+      {% include 'inc/panels/custom_fields.html' %}
+    </div>
+    <div class="col col-md-6">
+      {% include 'inc/panels/tags.html' %}
+      {% include 'inc/panels/comments.html' %}
+    </div>
+  </div>
+{% endblock content %}

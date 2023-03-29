@@ -12,25 +12,22 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-__version__ = "0.3.6"
 
 from extras.plugins import PluginConfig
+from .version import __version__, __min_version__
 
 
 class TunnelsConfig(PluginConfig):
     """This class defines attributes for the NetBox Tunnels Plugin."""
 
-    name = "netbox_tunnels"
+    name = "netbox_tunnels2"
     verbose_name = "Network Tunnels"
     version = __version__
-    description = "Network Tunnels"
-    base_url = "netbox_tunnels"
-    author = "Justin Drew"
-    author_email = "jdrew82@users.noreply.github.com"
-    min_version = "2.8.3"
-    required_settings = []
-    # default_settings = {}
-    # caching_config = {}
+    description = "Subsystem for tracking IP Tunnels"
+    base_url = "tunnels"
+    author = "Robert Lynch"
+    author_email = "robertlynch3@users.noreply.github.com"
+    min_version = __min_version__
 
 
 config = TunnelsConfig  # pylint:disable=invalid-name

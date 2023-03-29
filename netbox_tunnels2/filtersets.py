@@ -1,4 +1,4 @@
-"""Administrative capabilities for netbox_tunnelss plugin.
+"""Filtering logic for Tunnel instances.
 
 (c) 2020 Justin Drew
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,19 +11,24 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
-from django.contrib import admin
-from .models import Tunnel, TunnelDevice
+
+# import django_filters
+# from django.db.models import Q
 
 
-@admin.register(Tunnel)
-class TunnelAdmin(admin.ModelAdmin):
-    """Administrative view for managing Tunnels instances."""
-
-    list_display = ("tunnel_id", "name", "status", "tunnel_type")
+from netbox.filtersets import NetBoxModelFilterSet
+from .models import Tunnel
 
 
-@admin.register(TunnelDevice)
-class TunnelDeviceAdmin(admin.ModelAdmin):
-    """Administrative view for managing Tunnels to Device instances."""
-
-    list_display = ("tunnel", "device")
+class TunnelFilterSet(NetBoxModelFilterSet):
+    class Meta:
+        model = Tunnel
+        fields = (
+            "name",
+            "status",
+            "tunnel_type",
+            "src_address",
+            "dst_address"
+        )
+    def search(self, queryset, name, value):
+        return queryset.filter(description__icontains=value)

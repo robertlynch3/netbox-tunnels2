@@ -11,29 +11,51 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
-import os
-from setuptools import setup, find_packages
+import codecs
+import os.path
+
+from setuptools import find_packages, setup
 
 
-here = os.path.abspath(os.path.dirname(__file__))
-README = ""
+with open("README.md", "r") as fh:
+    long_description = fh.read()
 
-if os.path.exists("README.md"):
-    with open("README.md", "r") as f:
-        README = f.read()
+
+def read(rel_path):
+    here = os.path.abspath(os.path.dirname(__file__))
+    with codecs.open(os.path.join(here, rel_path), 'r') as fp:
+        return fp.read()
+
+
+def get_version(rel_path):
+    for line in read(rel_path).splitlines():
+        if line.startswith('__version__'):
+            delim = '"' if '"' in line else "'"
+            return line.split(delim)[1]
+    else:
+        raise RuntimeError("Unable to find version string.")
+
+def get_min_version(rel_path):
+    for line in read(rel_path).splitlines():
+        if line.startswith('__version__'):
+            delim = '"' if '"' in line else "'"
+            return line.split(delim)[1]
+    else:
+        raise RuntimeError("Unable to find version string.")
+
 
 setup(
-    name="netbox-tunnels-plugin",
-    version="0.3.6",
+    name="netbox-tunnels2",
+    version=get_min_version('netbox_tunnels2/version.py'),
     description="A plugin for NetBox to support documentation of network tunneling protocols, ie IPsec, GRE, L2TP, etc.",
-    long_description=README,
+    long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/jdrew82/netbox-tunnels-plugin",
-    author="Justin Drew",
+    url="https://github.com/robertlynch3/netbox-tunnels2",
+    author="Robert Lynch",
     license="Apache v2.0",
     package_data={"": ["LICENSE"],},
     install_requires=[],
-    min_version="2.8.3",
+    min_version=get_min_version('netbox_tunnels2/version.py'),
     packages=find_packages(),
     include_package_data=True,
 )

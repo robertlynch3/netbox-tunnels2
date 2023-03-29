@@ -12,43 +12,29 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 import django_tables2 as tables
-from utilities.tables import BaseTable, ToggleColumn
+from netbox.tables import NetBoxTable, ChoiceFieldColumn
 from .models import Tunnel
 
 
-class TunnelTable(BaseTable):
+class TunnelTable(NetBoxTable):
     """Table for displaying configured Tunnel instances."""
-
-    pk = ToggleColumn()
-
-    class Meta(BaseTable.Meta):
-        """Class to define what is used for tunnl_lists.html template to show configured tunnels."""
-
-        model = Tunnel
-        fields = [
-            "pk",
-            "name",
-            "status",
-            "tunnel_type",
-            "src_address",
-            "dst_address",
-        ]
-
-
-class TunnelBulkTable(BaseTable):
-    """Table for displaying Tunnel imports."""
-
-    pk = tables.LinkColumn()
-
-    class Meta(BaseTable.Meta):
-        """Class to define what is used for bulk import of tunnels."""
+    name = tables.Column(
+        linkify=True
+    )
+    status = ChoiceFieldColumn()
+    
+    class Meta(NetBoxTable.Meta):
+        """Class to define what is used for tunnel_lists.html template to show configured tunnels."""
 
         model = Tunnel
         fields = (
-            "pk",
+            'pk',
+            'id',
             "name",
             "status",
             "tunnel_type",
             "src_address",
-            "dst_address",
+            "dst_address"
         )
+        default_columns = ('name', 'status', 'tunnel_type', 'src_address', 'dst_address')
+
