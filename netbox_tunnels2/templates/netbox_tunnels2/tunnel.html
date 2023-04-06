@@ -16,20 +16,20 @@
             </tr>
             <tr>
               <th scope="row">Tunnel Type</th>
-              <td>{{ object.get_tunnel_type_display }}</td>
+              <td><a href="{{ object.tunnel_type.get_absolute_url }}">{{ object.tunnel_type }}</a></td>
             </tr>
-			<tr>
-				<th scope="row">Local Address</th>
-				<td>{{ object.src_address }}</td>
-			</tr>
-			<tr>
-				<th scope="row">Remote Address</th>
-				<td>{{ object.dst_address }}</td>
-			</tr>
-			<tr>
-				<th scope="row">Pre Shared Key</th>
-				<td>{{ object.psk }}</td>
-			</tr>
+            <tr>
+              <th scope="row">Local Address</th>
+              <td><a href="{{ object.local_address.get_absolute_url }}">{{ object.local_address }}</a></td>
+            </tr>
+            <tr>
+              <th scope="row">Remote Address</th>
+              <td><a href="{{ object.remote_address.get_absolute_url }}">{{ object.remote_address }}</a></td>
+            </tr>
+            <tr>
+              <th scope="row">Pre Shared Key</th>
+              <td>{{ object.psk }}</td>
+            </tr>
           </table>
         </div>
       </div>

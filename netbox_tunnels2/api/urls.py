@@ -8,5 +8,6 @@ app_name='netbox_tunnels2'
 
 router = NetBoxRouter()
 router.register('tunnels', views.TunnelViewSet)
+router.register('tunnel-types', views.TunnelTypeViewSet)
 
 urlpatterns = router.urls

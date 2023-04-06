@@ -12,8 +12,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from utilities.utils import count_related
 
-from netbox.views.generic import BulkDeleteView, BulkImportView, ObjectEditView, ObjectListView, ObjectView
+from netbox.views.generic import BulkDeleteView, BulkImportView, ObjectEditView, ObjectListView, ObjectView, ObjectDeleteView
 
 from . import forms, models, tables, filtersets
 
@@ -32,6 +33,14 @@ class ListTunnelView(PermissionRequiredMixin, ObjectListView):
     table = tables.TunnelTable
     
 
+class EditTunnelView(PermissionRequiredMixin, ObjectEditView):
+    """View for creating a new Tunnels."""
+
+    permission_required = "netbox_tunnels2.add_tunnels"
+    model = models.Tunnel
+    queryset = models.Tunnel.objects.all()
+    form = forms.TunnelEditForm
+    default_return_url = "plugins:netbox_tunnels2:tunnel_list"
 
 class CreateTunnelView(PermissionRequiredMixin, ObjectEditView):
     """View for creating a new Tunnels."""
@@ -39,9 +48,13 @@ class CreateTunnelView(PermissionRequiredMixin, ObjectEditView):
     permission_required = "netbox_tunnels2.add_tunnels"
     model = models.Tunnel
     queryset = models.Tunnel.objects.all()
-    form = forms.TunnelCreationForm
+    form = forms.TunnelAddForm
     default_return_url = "plugins:netbox_tunnels2:tunnel_list"
 
+class DeleteTunnelView(PermissionRequiredMixin,ObjectDeleteView):
+    permission_required = "netbox_tunnels2.delete_tunnels"
+    queryset = models.Tunnel.objects.all()
+    default_return_url = "plugins:netbox_tunnels2:tunnel_list"
 
 class BulkDeleteTunnelView(PermissionRequiredMixin, BulkDeleteView):
     """View for deleting one or more Tunnels."""
@@ -51,3 +64,58 @@ class BulkDeleteTunnelView(PermissionRequiredMixin, BulkDeleteView):
     table = tables.TunnelTable
     default_return_url = "plugins:netbox_tunnels2:tunnel_list"
 
+
+
+#
+# Tunnel Type
+#
+
+class TunnelTypeView(PermissionRequiredMixin, ObjectView):
+    permission_required = "netbox_tunnels2.view_type_tunnels"
+    queryset = models.TunnelType.objects.all()
+    def get_extra_context(self, request, instance):
+        table = tables.TunnelTable(instance.tunnels.all())
+        table.configure(request)
+        return {
+            'tunnel_table': table,
+        }
+
+class ListTunnelTypeView(PermissionRequiredMixin, ObjectListView):
+    """View for listing all Tunnels."""
+    permission_required = "netbox_tunnels2.view_type_tunnels"
+    model = models.TunnelType
+    queryset = models.TunnelType.objects.annotate(tunnel_count=count_related(models.Tunnel,'tunnel_type'))
+    table = tables.TunnelTypeTable
+    
+
+class EditTunnelTypeView(PermissionRequiredMixin, ObjectEditView):
+    """View for creating a new Tunnels."""
+
+    permission_required = "netbox_tunnels2.add_tunnels"
+    model = models.TunnelType
+    queryset = models.TunnelType.objects.all()
+    form = forms.TunnelTypeEditForm
+    default_return_url = "plugins:netbox_tunnels2:tunneltype_list"
+
+class CreateTunnelTypeView(PermissionRequiredMixin, ObjectEditView):
+    """View for creating a new Tunnels."""
+
+    permission_required = "netbox_tunnels2.add_tunnels"
+    model = models.TunnelType
+    queryset = models.TunnelType.objects.all()
+    form = forms.TunnelTypeEditForm
+    default_return_url = "plugins:netbox_tunnels2:tunneltype_list"
+    
+class DeleteTunnelTypeView(PermissionRequiredMixin,ObjectDeleteView):
+    permission_required = "netbox_tunnels2.delete_tunnels"
+    queryset = models.TunnelType.objects.all()
+    default_return_url = "plugins:netbox_tunnels2:tunneltype_list"
+
+
+class BulkDeleteTunnelTypeView(PermissionRequiredMixin, BulkDeleteView):
+    """View for deleting one or more Tunnels."""
+
+    permission_required = "netbox_tunnels2.delete_tunnels"
+    queryset = models.TunnelType.objects.filter()
+    table = tables.TunnelTable
+    default_return_url = "plugins:netbox_tunnels2:tunneltype_list"

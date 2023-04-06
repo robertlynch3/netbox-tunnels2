@@ -15,7 +15,9 @@ limitations under the License.
 from django.db import models
 from django.urls import reverse
 
-from netbox.models import NetBoxModel
+from netbox.models import NetBoxModel, OrganizationalModel
+from utilities.querysets import RestrictedQuerySet
+
 
 
 
@@ -35,33 +37,55 @@ class TunnelStatusChoices(ChoiceSet):
         (STATUS_PENDING_DELETION, 'Pending Deletion', 'red'),
     ]
 
-
-class TunnelTypeChoices(ChoiceSet):
-    """List of possible types of Tunnels."""
-
-    IPSEC_TUNNEL = "ipsec-tunnel"
-    GRE_TUNNEL = "gre-tunnel"
-    L2TP_TUNNEL = "l2tp-tunnel"
-    PPTP_TUNNEL = "pptp-tunnel"
-    CIPE_TUNNEL = "cipe-tunnel"
-
-    CHOICES = (
-        (IPSEC_TUNNEL, "IPSec Tunnel"),
-        (GRE_TUNNEL, "GRE Tunnel"),
-        (L2TP_TUNNEL, "L2TP Tunnel"),
-        (PPTP_TUNNEL, "PPTP Tunnel"),
-        (CIPE_TUNNEL, "CIPE Tunnel"),
+class TunnelType(OrganizationalModel):
+    name = models.CharField(
+        max_length=100,
+        unique=True
     )
+    slug = models.SlugField(
+        max_length=100,
+        unique=True
+    )
+    objects = RestrictedQuerySet.as_manager()
 
+
+    class Meta:
+        ordering = ['name']
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('plugins:netbox_tunnels2:tunneltype', args=[self.pk])
 
 
 class Tunnel(NetBoxModel):
     """Tunnel model."""
     name = models.CharField(max_length=64)
     status = models.CharField(max_length=30, choices=TunnelStatusChoices, default=TunnelStatusChoices.STATUS_PENDING_CONFIGURATION)
-    tunnel_type = models.CharField(max_length=30, choices=TunnelTypeChoices, default=TunnelTypeChoices.IPSEC_TUNNEL)
-    src_address = models.CharField(verbose_name="Source Address", max_length=28, blank=True)
-    dst_address = models.CharField(verbose_name="Destination Address", max_length=28, blank=True)
+    tunnel_type = models.ForeignKey(
+        to='TunnelType',
+        on_delete=models.PROTECT,
+        related_name='tunnels'
+    )
+    local_interface = models.ForeignKey(
+        to='dcim.Interface',
+        on_delete=models.PROTECT,
+        null=True,
+    )
+    local_address = models.ForeignKey(
+        to='ipam.IPAddress',
+        on_delete=models.PROTECT,
+        related_name='tunnel_local_address'
+    )
+    remote_address=models.ForeignKey(
+        to='ipam.IPAddress',
+        on_delete=models.PROTECT,
+        related_name='tunnel_remote_address'
+    )
+    description = models.CharField(
+        max_length=200,
+        blank=True
+    )
     psk = models.CharField(verbose_name="Pre-shared Key", max_length=100, blank=True)
     comments = models.TextField(blank=True)
 
@@ -75,13 +99,3 @@ class Tunnel(NetBoxModel):
         return reverse('plugins:netbox_tunnels2:tunnel', args=[self.pk])
     def get_status_color(self):
         return TunnelStatusChoices.colors.get(self.status)
-
-
-# class TunnelDevice(NetBoxModel):
-#     """Tunnel to Device relationship."""
-
-#     tunnel = models.ForeignKey(to=Tunnel, on_delete=models.CASCADE, related_name="device")
-#     device = models.OneToOneField(to='dcim.Device', on_delete=models.CASCADE, related_name="device_of")
-
-#     class Meta:
-#         """Class to define what will be used to set order based on. Will be using the unique tunnel for this purpose."""

@@ -14,10 +14,30 @@ This plugin is a fork of [jdrew82/netbox-tunnels-plugin](https://github.com/jdre
 A plugin for [NetBox](https://github.com/netbox-community/netbox) to support documentation of network tunneling
  protocols, ie IPsec, GRE, L2TP, etc.
  -->
+ ## Features
+This plugin provide following Models:
+* Tunnels
+* Tunnel Types
 
+## Compatibility
 
+|             |       |
+|-------------|-------|
+| NetBox 3.4  | >= 0.3.7 |
+
+This is currently a work in progress.
 ## Installation
+To install the package
+```
+git clone https://github.com/robertlynch3/netbox-tunnels2.git
+cd netbox-tunnels2
+source /path/to/netbox/venv/bin/activate
+python3 setup.py develop
+```
 
-TBD
+Enable the plugin in /opt/netbox/netbox/netbox/configuration.py:
+```
+PLUGINS = ['netbox_tunnels2']
+```
 
-
+See [NetBox Documentation](https://docs.netbox.dev/en/stable/plugins/#installing-plugins) for details
