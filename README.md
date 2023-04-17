@@ -21,9 +21,9 @@ This plugin provide following Models:
 
 ## Compatibility
 
-|             |       |
-|-------------|-------|
-| NetBox 3.4  | >= 0.3.7 |
+| NetBox Version | Plugin Version |
+|:--------------:|:--------------:|
+|   NetBox 3.4   |      0.3.7     |
 
 This is currently a work in progress.
 ## Installation
