@@ -19,4 +19,4 @@ class TunnelViewSet(NetBoxModelViewSet):
 class TunnelTypeViewSet(NetBoxModelViewSet):
     queryset = models.TunnelType.objects.all()
     serializer_class = TunnelTypeSerializer
-    #filterset_class = filtersets.TunnelFilterSet
+    filterset_class = filtersets.TunnelTypeFilterSet

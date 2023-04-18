@@ -40,6 +40,15 @@ Enable the plugin in /opt/netbox/netbox/netbox/configuration.py:
 PLUGINS = ['netbox_tunnels2']
 ```
 
+Apply the migrations with Netbox `manage.py`:
+```
+(venv) $ python manage.py migrate
+```
+
+Restart Netbox to apply the changes:
+```
+sudo systemctl restart netbox
+```
 See [NetBox Documentation](https://docs.netbox.dev/en/stable/plugins/#installing-plugins) for details
 
 ## Screenshots
@@ -48,3 +57,7 @@ Tunnel List
 
 Tunnel Details
 ![Tunnel Details](docs/img/tunnel-info.png)
+
+## TODO
+* Validate the Public IP addresses belong to the Devices
+* Validate the same inside interface is not used by multiple tunnels

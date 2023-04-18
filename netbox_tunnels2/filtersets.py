@@ -1,34 +1,52 @@
-"""Filtering logic for Tunnel instances.
-
-(c) 2020 Justin Drew
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-  http://www.apache.org/licenses/LICENSE-2.0
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-"""
-
-# import django_filters
-# from django.db.models import Q
-
-
+import django_filters
 from netbox.filtersets import NetBoxModelFilterSet
-from .models import Tunnel
+from dcim.models import Interface
+from .models import Tunnel, TunnelType
 
 
 class TunnelFilterSet(NetBoxModelFilterSet):
+    side_a_interface = django_filters.ModelMultipleChoiceFilter(
+        field_name="interface__name",
+        queryset=Interface.objects.all(),
+        to_field_name="name",
+        label="Side A Interface (name)",
+    )
+    side_a_interface_id = django_filters.ModelMultipleChoiceFilter(
+        field_name="interface",
+        queryset=Interface.objects.all(),
+        label="Side A Interface (ID)",
+    )
+    side_b_interface = django_filters.ModelMultipleChoiceFilter(
+        field_name="interface__name",
+        queryset=Interface.objects.all(),
+        to_field_name="name",
+        label="Side B Interface (name)",
+    )
+    side_b_interface_id = django_filters.ModelMultipleChoiceFilter(
+        field_name="interface",
+        queryset=Interface.objects.all(),
+        label="Side B Interface (ID)",
+    )
     class Meta:
         model = Tunnel
         fields = (
             "name",
             "status",
             "tunnel_type",
-            "local_address",
-            "remote_address"
+            "a_pub_address",
+            "b_pub_address",
+            "side_a_interface",
+            "side_a_interface_id",
+            "side_b_interface",
+            "side_b_interface_id",
         )
     def search(self, queryset, name, value):
         return queryset.filter(description__icontains=value)
+    
+class TunnelTypeFilterSet(NetBoxModelFilterSet):
+    class Meta:
+        model = TunnelType
+        fields = (
+            "name",
+            "slug"
+        )

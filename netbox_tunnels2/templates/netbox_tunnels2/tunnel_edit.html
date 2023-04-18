@@ -1,0 +1,53 @@
+{% extends 'generic/object_edit.html' %}
+{% load static %}
+{% load form_helpers %}
+
+{% block title %}{% if obj.pk %}Editing {{ obj }}{% else %}Add a tunnel{% endif %}{% endblock %}
+
+{% block form %}
+{% render_errors form %}
+<div class="field-group">
+  <h4>Tunnel Details</h4>
+  {% render_field form.name %}
+  {% render_field form.status %}
+  {% render_field form.tunnel_type %}
+  {% render_field form.a_pub_VRF %}
+  {% render_field form.a_pub_address %}
+  {% render_field form.b_pub_VRF %}
+  {% render_field form.b_pub_address %}
+  {% render_field form.psk %}
+</div>
+<div class="field-group">
+    <h4>Side A Interface Assignment</h4>
+    <div class="tab-content">
+        <div class="tab-pane{% if not form.initial.side_a_virtual_chassis and not form.initial.side_a_virtual_machine %} active{% endif %}" id="deviceA">
+            {% render_field form.side_a_device %}
+            {% render_field form.side_a_interface %}
+        </div>
+    </div>
+</div>
+
+<div class="field-group">
+    <h4>Side B Interface Assignment</h4>
+    <div class="tab-content">
+        <div class="tab-pane{% if not form.initial.side_b_virtual_chassis and not form.initial.side_b_virtual_machine %} active{% endif %}" id="deviceB">
+            {% render_field form.side_b_device %}
+            {% render_field form.side_b_interface %}
+        </div>
+    </div>
+</div>
+
+
+<div class="field-group">
+    <h4>Comments</h4>
+    {% render_field form.comments %}
+</div>
+{% if form.custom_fields %}
+    <div class="card">
+        <h5 class="card-header">Custom Fields</h5>
+        <div class="card-body">
+            {% render_custom_fields form %}
+        </div>
+    </div>
+{% endif %}
+{% endblock %}

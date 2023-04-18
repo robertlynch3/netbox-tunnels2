@@ -20,11 +20,11 @@
             </tr>
             <tr>
               <th scope="row">Local Address</th>
-              <td><a href="{{ object.local_address.get_absolute_url }}">{{ object.local_address }}</a></td>
+              <td><a href="{{ object.a_pub_address.get_absolute_url }}">{{ object.a_pub_address }}</a></td>
             </tr>
             <tr>
               <th scope="row">Remote Address</th>
-              <td><a href="{{ object.remote_address.get_absolute_url }}">{{ object.remote_address }}</a></td>
+              <td><a href="{{ object.b_pub_address.get_absolute_url }}">{{ object.b_pub_address }}</a></td>
             </tr>
             <tr>
               <th scope="row">Pre Shared Key</th>
@@ -38,6 +38,51 @@
     <div class="col col-md-6">
       {% include 'inc/panels/tags.html' %}
       {% include 'inc/panels/comments.html' %}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col col-md-12">
+      <div class="card">
+        <h5 class="card-header">Endpoints</h5>
+        <div class="card-body table-responsive">
+          <!-- Table object for the Endpoints -->
+          <div class="table-container"> 
+            <table class="table table-hover object-list">
+              <thead>
+                <tr>
+                  <th>Side A Device</th>
+                  <th>Side A Inside Interface</th>
+                  <th>Side B Device</th>
+                  <th>Side B Inside Interface</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="even">
+                  <td>
+                    <a href="{{ object.side_a_assigned_object.device.get_absolute_url }}">{{ object.side_a_assigned_object.device|placeholder }}</a>
+                  </td>
+                  <td>
+                    <a href="{{ object.side_a_assigned_object.get_absolute_url }}">{{ object.side_a_assigned_object|placeholder }}</a>
+                  </td>
+                  <td>
+                    <a href="{{ object.side_b_assigned_object.device.get_absolute_url }}">{{ object.side_b_assigned_object.device|placeholder }}</a>
+                  </td>
+                  <td>
+                    <a href="{{ object.side_b_assigned_object.get_absolute_url }}">{{ object.side_b_assigned_object|placeholder }}</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col col-md-6">
+
+    
+
     </div>
   </div>
 {% endblock content %}

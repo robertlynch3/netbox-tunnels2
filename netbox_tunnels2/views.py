@@ -1,16 +1,3 @@
-"""Django views for network tunnels.
-
-(c) 2020 Justin Drew
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-  http://www.apache.org/licenses/LICENSE-2.0
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-"""
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from utilities.utils import count_related
 
@@ -41,15 +28,17 @@ class EditTunnelView(PermissionRequiredMixin, ObjectEditView):
     queryset = models.Tunnel.objects.all()
     form = forms.TunnelEditForm
     default_return_url = "plugins:netbox_tunnels2:tunnel_list"
+    template_name = "netbox_tunnels2/tunnel_edit.html"
 
 class CreateTunnelView(PermissionRequiredMixin, ObjectEditView):
     """View for creating a new Tunnels."""
-
     permission_required = "netbox_tunnels2.add_tunnels"
     model = models.Tunnel
     queryset = models.Tunnel.objects.all()
-    form = forms.TunnelAddForm
+    #form = forms.TunnelAddForm
+    form = forms.TunnelEditForm
     default_return_url = "plugins:netbox_tunnels2:tunnel_list"
+    template_name = "netbox_tunnels2/tunnel_edit.html"
 
 class DeleteTunnelView(PermissionRequiredMixin,ObjectDeleteView):
     permission_required = "netbox_tunnels2.delete_tunnels"

@@ -16,16 +16,49 @@ from netbox.tables import NetBoxTable, ChoiceFieldColumn, columns
 from .models import Tunnel, TunnelType
 
 
+COL_SIDE_A_HOST_ASSIGNMENT = """
+    {% if record.side_a_assigned_object.device %}
+    <a href="{{ record.side_a_assigned_object.device.get_absolute_url }}">{{ record.side_a_assigned_object.device|placeholder }}</a>
+    {% else %}
+    <a href="{{ record.side_a_assigned_object.virtual_machine.get_absolute_url }}">{{ record.side_a_assigned_object.virtual_machine|placeholder }}</a>
+    {% endif %}
+ """
+COL_SIDE_B_HOST_ASSIGNMENT = """
+    {% if record.side_b_assigned_object.device %}
+    <a href="{{ record.side_b_assigned_object.device.get_absolute_url }}">{{ record.side_b_assigned_object.device|placeholder }}</a>
+    {% else %}
+    <a href="{{ record.side_b_assigned_object.virtual_machine.get_absolute_url }}">{{ record.side_b_assigned_object.virtual_machine|placeholder }}</a>
+    {% endif %}
+ """
+
 class TunnelTable(NetBoxTable):
     """Table for displaying configured Tunnel instances."""
     name = tables.Column(
         linkify=True
     )
     tunnel_type=tables.Column(linkify=True)
-    local_address = tables.Column(linkify=True)
-    remote_address = tables.Column(linkify=True)
+    a_pub_address = tables.Column(linkify=True)
+    b_pub_address = tables.Column(linkify=True)
     status = ChoiceFieldColumn()
-    
+
+    side_a_host = tables.TemplateColumn(
+        template_code=COL_SIDE_A_HOST_ASSIGNMENT,
+        verbose_name="Side A Host",
+    )
+    side_a_assigned_object = tables.Column(
+        linkify=True,
+        orderable=False,
+        verbose_name="Side A Interface",
+    )
+    side_b_host = tables.TemplateColumn(
+        template_code=COL_SIDE_B_HOST_ASSIGNMENT,
+        verbose_name="Side B Host",
+    )
+    side_b_assigned_object = tables.Column(
+        linkify=True,
+        orderable=False,
+        verbose_name="Side ABInterface",
+    )
     class Meta(NetBoxTable.Meta):
         """Class to define what is used for tunnel_lists.html template to show configured tunnels."""
 
@@ -35,11 +68,15 @@ class TunnelTable(NetBoxTable):
             'id',
             "name",
             "tunnel_type",
+            "side_a_host",
+            "side_a_assigned_object",
+            "side_b_host",
+            "side_b_assigned_object",
             "status",
-            "local_address",
-            "remote_address"
+            "a_pub_address",
+            "b_pub_address"
         )
-        default_columns = ('name', 'status', 'tunnel_type', 'local_address', 'remote_address')
+        default_columns = ('name', 'status', 'tunnel_type', 'side_a_host', 'side_b_host','a_pub_address', 'b_pub_address')
 
 class TunnelTypeTable(NetBoxTable):
     """Table for displaying configured Tunnel instances."""
