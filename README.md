@@ -1,5 +1,5 @@
 # Netbox Tunnels Plugin
-This plugin is a fork of [jdrew82/netbox-tunnels-plugin](https://github.com/jdrew82/netbox-tunnels-plugin) and [hiddenman/netbox-tunnels-plugin](https://github.com/hiddenman/netbox-tunnels-plugin) in an effort to support Netbox 3.4+.
+This plugin is a fork of [jdrew82/netbox-tunnels-plugin](https://github.com/jdrew82/netbox-tunnels-plugin) and [hiddenman/netbox-tunnels-plugin](https://github.com/hiddenman/netbox-tunnels-plugin) in an effort to support Netbox 3.4+. 
 
 <!-- Build status with linky to the builds for ease of access.
 [![Build Status](https://travis-ci.com/jdrew82/netbox-tunnels-plugin.svg?token=XHesDxGFcPtaq1Q3URi5&branch=master)](https://travis-ci.com/jdrew82/netbox-tunnels-plugin)
@@ -41,3 +41,10 @@ PLUGINS = ['netbox_tunnels2']
 ```
 
 See [NetBox Documentation](https://docs.netbox.dev/en/stable/plugins/#installing-plugins) for details
+
+## Screenshots
+Tunnel List
+![Tunnel List](docs/img/tunnel-list.png)
+
+Tunnel Details
+![Tunnel Details](docs/img/tunnel-info.png)
