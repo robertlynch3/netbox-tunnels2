@@ -3,9 +3,6 @@ name: Upload Python Package
 on:
   release:
     types: [published]
-  push:
-    branches:
-      - 'master'
 
 jobs:
   deploy:
@@ -27,5 +24,4 @@ jobs:
     - name: Publish package
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
-        repository-url: https://test.pypi.org/legacy/
-        password: ${{ secrets.TEST_PYPI_API_TOKEN }}
+        password: ${{ secrets.PYPI_API_TOKEN }}
