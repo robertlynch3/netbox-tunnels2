@@ -53,10 +53,10 @@ See [NetBox Documentation](https://docs.netbox.dev/en/stable/plugins/#installing
 
 ## Screenshots
 Tunnel List
-![Tunnel List](docs/img/tunnel-list.png)
+![Tunnel List](https://github.com/robertlynch3/netbox-tunnels2/blob/master/docs/img/tunnel-list.png)
 
 Tunnel Details
-![Tunnel Details](docs/img/tunnel-info.png)
+![Tunnel Details](https://github.com/robertlynch3/netbox-tunnels2/blob/master/docs/img/tunnel-info.png)
 
 ## TODO
 * Validate the Public IP addresses belong to the Devices
