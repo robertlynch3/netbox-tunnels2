@@ -27,7 +27,12 @@ This plugin provide following Models:
 
 This is currently a work in progress.
 ## Installation
-To install the package
+You can install this package from Pip
+```
+pip install netbox-tunnels2
+```
+
+To install the package from source
 ```
 git clone https://github.com/robertlynch3/netbox-tunnels2.git
 cd netbox-tunnels2
