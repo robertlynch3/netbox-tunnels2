@@ -108,7 +108,9 @@ class Tunnel(NetBoxModel):
         to='ipam.IPAddress',
         on_delete=models.PROTECT,
         related_name='tunnel_b_pub_address',
-        verbose_name="Side B Public Address"
+        verbose_name="Side B Public Address",
+        null=True,
+        blank=True
     )
     description = models.CharField(
         max_length=200,
