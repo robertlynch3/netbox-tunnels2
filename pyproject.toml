@@ -28,8 +28,8 @@ push = true
 
 [tool.bumpver.file_patterns]
 "pyproject.toml" = [
-    'current_version = "{version}"',
-    'version = "{version}"
+    'current_version = "{version}"$',
+    'version = "{version}"$',
 ]
 "netbox_tunnels2/version.py" = [
     '__version__="{version}"$',
