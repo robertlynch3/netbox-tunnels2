@@ -28,7 +28,7 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
         with:
-          path: netbox-dns
+          path: netbox-tunnels2
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
@@ -42,8 +42,8 @@ jobs:
           path: netbox
           ref: develop
 
-      - name: install netbox_dns
-        working-directory: netbox-dns
+      - name: install netbox_tunnels2
+        working-directory: netbox-tunnels2
         run: |
           # include tests directory for test
           sed -i 's/exclude/#exclude/g' pyproject.toml
