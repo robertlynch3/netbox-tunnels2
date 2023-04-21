@@ -30,15 +30,6 @@ push = true
 "pyproject.toml" = [
     'current_version = "{version}"',
 ]
-"setup.py" = [
-    "{version}",
-    "{pep440_version}",
-]
-"README.md" = [
-    "{version}",
-    "{pep440_version}",
-]
-"netbox_tunnels2/__init__.py" = [
-    "{version}",
-    "{__version__}",
+"netbox_tunnels2/version.py" = [
+    '__version__="{version}"$',
 ]
