@@ -5,8 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        #python-version: ["3.8", "3.9", "3.10", "3.11"]
-        python-version: ["3.11"]
+        python-version: ["3.8", "3.9", "3.10", "3.11"]
     services:
       redis:
         image: redis
@@ -58,4 +57,4 @@ jobs:
       - name: Run tests
         working-directory: netbox
         run: |
-          python netbox/manage.py test netbox_tunnels2.test
+          python netbox/manage.py test netbox_tunnels2
