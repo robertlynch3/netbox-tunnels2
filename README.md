@@ -23,7 +23,8 @@ This plugin provide following Models:
 
 | NetBox Version | Plugin Version |
 |:--------------:|:--------------:|
-|   NetBox 3.4   |      0.2.1     |
+|   NetBox 3.4   |      0.2.2     |
+|   NetBox 3.5 >   |      0.2.3     |
 
 This is currently a work in progress.
 ## Installation

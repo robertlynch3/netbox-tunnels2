@@ -7,7 +7,7 @@ from django.forms import (
     ModelChoiceField
 )
 
-from utilities.forms import (
+from utilities.forms.fields import (
     DynamicModelChoiceField,
     SlugField,
     DynamicModelMultipleChoiceField

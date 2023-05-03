@@ -11,7 +11,7 @@ from ..models import Tunnel, TunnelType
 
 from netbox.constants import NESTED_SERIALIZER_PREFIX
 from utilities.api import get_serializer_for_model
-from drf_yasg.utils import swagger_serializer_method
+from drf_spectacular.utils import extend_schema_field
 
 class NestedTunnelSerializer(WritableNestedSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='plugins-api:netbox_tunnels2-api:tunnel-detail')
@@ -60,7 +60,7 @@ class TunnelSerializer(NetBoxModelSerializer):
             'created',
             'last_updated',
         )
-    @swagger_serializer_method(serializer_or_field=serializers.DictField)
+    @extend_schema_field(serializers.DictField)
     def get_side_a_assigned_object(self, obj):
         if obj.side_a_assigned_object is None:
             return None
