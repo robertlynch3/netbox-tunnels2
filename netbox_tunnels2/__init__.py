@@ -1,5 +1,5 @@
 from extras.plugins import PluginConfig
-from .version import __version__, __min_version__
+from .version import __version__, __min_version__, __max_version__
 
 
 class TunnelsConfig(PluginConfig):
@@ -12,6 +12,7 @@ class TunnelsConfig(PluginConfig):
     author = "Robert Lynch"
     author_email = "robertlynch3@users.noreply.github.com"
     min_version = __min_version__
+    max_version = __max_version__
 
 
 config = TunnelsConfig 
