@@ -56,7 +56,7 @@ class TunnelEditForm(NetBoxModelForm):
         },
         required=False
     )
-    psk = CharField(required=False, label="Pre-shared Key", widget=PasswordInput, help_text="Pre-shared key")
+    psk = CharField(required=False, label="Pre-shared Key", help_text="Pre-shared key")
 
     side_a_device = DynamicModelChoiceField(
         queryset=Device.objects.all(),
