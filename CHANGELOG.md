@@ -1,4 +1,6 @@
 # Changelog
+## 0.2.4 (2023-05-03)
+* Resolved [#4](https://github.com/robertlynch3/netbox-tunnels2/issues/4)
 
 ## 0.2.3 (2023-05-03)
 * Added Netbox 3.5 support
