@@ -1,0 +1,9 @@
+- name: AK
+  slug: dc1
+  status: Active
+- name: WDC
+  slug: dc2
+  status: Active
+- name: SF
+  slug: SF
+  status: Active

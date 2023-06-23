@@ -1,0 +1,9 @@
+- name: switch
+  slug: switch
+  color: Grey
+- name: router
+  slug: router
+  color: Cyan
+- name: firewall
+  slug: firewall
+  color: Cyan
