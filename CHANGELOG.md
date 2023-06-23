@@ -1,4 +1,7 @@
 # Changelog
+## 0.2.5 (2023-06-23)
+* Added the blocks for rendering extra content by registered plugins
+
 ## 0.2.4 (2023-05-03)
 * Resolved [#4](https://github.com/robertlynch3/netbox-tunnels2/issues/4)
 
@@ -9,8 +12,6 @@
 * Resolved [#1](https://github.com/robertlynch3/netbox-tunnels2/issues/1)
 
 ## 0.2.1 (2023-04-19)
-
 * Initial release of netbox-tunnels2
 * Updated for Netbox v3.4+
 * Added tunnel endpoints to denote the inner tunnel interfaces
-
