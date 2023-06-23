@@ -1,0 +1,7 @@
+admin: 
+  first_name: admin 
+  last_name:  user
+  is_active: True 
+  is_superuser: True 
+  is_staff: True 
+  password: admin

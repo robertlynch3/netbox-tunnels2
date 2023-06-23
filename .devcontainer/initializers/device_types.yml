@@ -1,0 +1,5 @@
+- model: SRX4200
+  manufacturer: Juniper
+  slug: srx4200
+  is_full_depth: True
+  u_height: 1

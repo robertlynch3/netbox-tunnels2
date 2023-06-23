@@ -1,0 +1,12 @@
+- name: fw1
+  device_role: firewall
+  device_type: SRX4200
+  site: AK
+- name: fw2
+  device_role: firewall
+  device_type: SRX4200
+  site: WDC
+- name: fw3
+  device_role: firewall
+  device_type: SRX4200
+  site: SF
