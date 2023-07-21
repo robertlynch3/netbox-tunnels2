@@ -1,6 +1,7 @@
 import django_filters
 from netbox.filtersets import NetBoxModelFilterSet
 from dcim.models import Interface
+from tenancy.models import Tenant
 from .models import Tunnel, TunnelType
 
 
@@ -27,6 +28,13 @@ class TunnelFilterSet(NetBoxModelFilterSet):
         queryset=Interface.objects.all(),
         label="Side B Interface (ID)",
     )
+    tenant_id = django_filters.ModelChoiceFilter(
+        field_name="tenant_id",
+        queryset=Tenant.objects.all(),
+        to_field_name="id",
+        label="Tenant (ID)",
+    )
+
     class Meta:
         model = Tunnel
         fields = (
@@ -40,9 +48,11 @@ class TunnelFilterSet(NetBoxModelFilterSet):
             "side_b_interface",
             "side_b_interface_id",
         )
+
     def search(self, queryset, name, value):
         return queryset.filter(description__icontains=value)
-    
+
+
 class TunnelTypeFilterSet(NetBoxModelFilterSet):
     class Meta:
         model = TunnelType

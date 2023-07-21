@@ -19,6 +19,7 @@ from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelatio
 
 from netbox.models import NetBoxModel, OrganizationalModel
 from utilities.querysets import RestrictedQuerySet
+from tenancy.models import Tenant
 from .constants import TUNNEL_INTERFACE_ASSIGNMENT_MODELS
 
 from dcim.models import Device, Interface
@@ -114,6 +115,12 @@ class Tunnel(NetBoxModel):
     )
     description = models.CharField(
         max_length=200,
+        blank=True
+    )
+    tenant = models.ForeignKey(
+        to=Tenant,
+        on_delete=models.RESTRICT,
+        null=True,
         blank=True
     )
     psk = models.CharField(verbose_name="Pre-shared Key", max_length=100, blank=True)

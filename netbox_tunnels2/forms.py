@@ -20,6 +20,7 @@ from django.core.exceptions import MultipleObjectsReturned, ObjectDoesNotExist, 
 from django.contrib.contenttypes.models import ContentType
 
 from netbox.forms import NetBoxModelForm, NetBoxModelFilterSetForm
+from tenancy.models import Tenant
 
 from .models import Tunnel, TunnelStatusChoices, TunnelType
 
@@ -61,7 +62,10 @@ class TunnelEditForm(NetBoxModelForm):
     side_a_device = DynamicModelChoiceField(
         queryset=Device.objects.all(),
         label="Site A Device",
-        required=False
+        required=False,
+        query_params={
+            "tenant_id": "$tenant",
+        },
     )
     side_a_interface = DynamicModelChoiceField(
         queryset=Interface.objects.all(),
@@ -74,7 +78,10 @@ class TunnelEditForm(NetBoxModelForm):
     side_b_device = DynamicModelChoiceField(
         queryset=Device.objects.all(),
         label="Site B Device",
-        required=False
+        required=False,
+        query_params={
+            "tenant_id": "$tenant",
+        },
     )
     side_b_interface = DynamicModelChoiceField(
         queryset=Interface.objects.all(),
@@ -113,6 +120,7 @@ class TunnelEditForm(NetBoxModelForm):
             "psk",
             'comments',
             'tags',
+            'tenant',
         )
     def clean(self):
         cleaned_data = super().clean()
@@ -172,6 +180,7 @@ class TunnelAddForm(TunnelEditForm):
             "psk",
             "comments",
             "tags",
+            "tenant",
         )
     field_order = ["name",
             "status",
@@ -181,6 +190,7 @@ class TunnelAddForm(TunnelEditForm):
             "b_pub_VRF",
             "b_pub_address",
             "psk",
+            "tenant",
             "comments",
             "tags"]
     
@@ -226,6 +236,9 @@ class TunnelFilterForm(NetBoxModelFilterSetForm):
         required=False,
         label="Remote Address",
     )
+    tenant_id = DynamicModelMultipleChoiceField(
+        required=False, queryset=Tenant.objects.all(), label="Tenant"
+    )
     class Meta:
         """Class to define what is used for filtering tunnels with the search box."""
         model = Tunnel
@@ -234,6 +247,7 @@ class TunnelFilterForm(NetBoxModelFilterSetForm):
             "b_pub_address",
             "psk",
             "tunnel_type",
+            "tenant_id",
         )
 
 #

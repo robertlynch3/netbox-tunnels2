@@ -31,6 +31,10 @@
               <th scope="row">Pre Shared Key</th>
               <td>{{ object.psk }}</td>
             </tr>
+            <tr>
+              <th scope="row">Tenant</th>
+              <td><a href="{{ object.tenant.get_absolute_url }}">{{ object.tenant }}</a></td>
+            </tr>
           </table>
         </div>
       </div>
