@@ -2,8 +2,6 @@
 {% load static %}
 {% load form_helpers %}
 
-{% block title %}{% if obj.pk %}Editing {{ obj }}{% else %}Add a tunnel{% endif %}{% endblock %}
-
 {% block form %}
 {% render_errors form %}
 <div class="field-group">
@@ -37,17 +35,15 @@
     </div>
 </div>
 
+{% if form.custom_fields %}
+    <div class="field-group">
+        <h4>Custom Fields</h4>
+            {% render_custom_fields form %}
+    </div>
+{% endif %}
 
 <div class="field-group">
     <h4>Comments</h4>
     {% render_field form.comments %}
 </div>
-{% if form.custom_fields %}
-    <div class="card">
-        <h5 class="card-header">Custom Fields</h5>
-        <div class="card-body">
-            {% render_custom_fields form %}
-        </div>
-    </div>
-{% endif %}
 {% endblock %}
