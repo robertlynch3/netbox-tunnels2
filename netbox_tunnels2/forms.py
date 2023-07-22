@@ -38,22 +38,35 @@ class TunnelEditForm(NetBoxModelForm):
             queryset=TunnelType.objects.all(),
             required=True
     )
-    a_pub_VRF = DynamicModelChoiceField(label='Side A Address VRF', queryset=VRF.objects.all(),required=False)
+    a_pub_VRF = DynamicModelChoiceField(
+        label='Side A Address VRF',
+        queryset=VRF.objects.all(),
+        required=False,
+        selector=True,
+        query_params={
+            "tenant_id": "$tenant",
+        },
+    )
     a_pub_address = DynamicModelChoiceField(
         label='Side A Public IP Address',
         queryset=IPAddress.objects.all(),
         query_params={
             'vrf_id': '$a_pub_VRF',
-            'device_id':'$side_a_device'
+            'device_id': '$side_a_device'
         }
     )
-    b_pub_VRF = DynamicModelChoiceField(label='Side B Address VRF', queryset=VRF.objects.all(),required=False)
+    b_pub_VRF = DynamicModelChoiceField(
+        label='Side B Address VRF',
+        queryset=VRF.objects.all(),
+        selector=True,
+        required=False
+    )
     b_pub_address = DynamicModelChoiceField(
         label='Side B Public IP Address',
         queryset=IPAddress.objects.all(),
         query_params={
             'vrf_id': '$side_b_device',
-            'device_id':'$side_b_device'
+            'device_id': '$side_b_device'
         },
         required=False
     )
@@ -63,6 +76,7 @@ class TunnelEditForm(NetBoxModelForm):
         queryset=Device.objects.all(),
         label="Site A Device",
         required=False,
+        selector=True,
         query_params={
             "tenant_id": "$tenant",
         },
@@ -79,9 +93,7 @@ class TunnelEditForm(NetBoxModelForm):
         queryset=Device.objects.all(),
         label="Site B Device",
         required=False,
-        query_params={
-            "tenant_id": "$tenant",
-        },
+        selector=True,
     )
     side_b_interface = DynamicModelChoiceField(
         queryset=Interface.objects.all(),
@@ -222,7 +234,7 @@ class TunnelFilterForm(NetBoxModelFilterSetForm):
     """Form for filtering Tunnel instances."""
     model = Tunnel
     status = MultipleChoiceField(choices=TunnelStatusChoices, required=False)
-    tunnel_type = tunnel_type = ModelChoiceField(
+    tunnel_type = ModelChoiceField(
             queryset=TunnelType.objects.all(),
             required=False
     )
