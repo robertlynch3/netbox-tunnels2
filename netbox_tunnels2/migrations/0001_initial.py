@@ -14,7 +14,6 @@ class Migration(migrations.Migration):
         ('extras', '0084_staging'),
         ('ipam', '0064_clear_search_cache'),
         ('contenttypes', '0002_remove_content_type_name'),
-        ('tenancy', '0010_tenant_relax_uniqueness'),
     ]
 
     operations = [
@@ -54,7 +53,6 @@ class Migration(migrations.Migration):
                 ('side_b_assigned_object_type', models.ForeignKey(blank=True, limit_choices_to=models.Q(models.Q(('app_label', 'dcim'), ('model', 'interface'))), null=True, on_delete=django.db.models.deletion.PROTECT, related_name='side_b_assigned_object_type', to='contenttypes.contenttype')),
                 ('tags', taggit.managers.TaggableManager(through='extras.TaggedItem', to='extras.Tag')),
                 ('tunnel_type', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='tunnels', to='netbox_tunnels2.tunneltype')),
-                ('tenant', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.RESTRICT, to='tenancy.tenant')),
             ],
             options={
                 'verbose_name_plural': 'Tunnels',
