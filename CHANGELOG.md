@@ -1,4 +1,9 @@
 # Changelog
+## 0.2.6 (2023-07-25)
+* Add Tenancy support to tunnels by @p-rintz in https://github.com/robertlynch3/netbox-tunnels2/pull/12
+* Fix title & align custom fields in template by @p-rintz in https://github.com/robertlynch3/netbox-tunnels2/pull/13
+
+
 ## 0.2.5 (2023-06-23)
 * Added the blocks for rendering extra content by registered plugins
 
