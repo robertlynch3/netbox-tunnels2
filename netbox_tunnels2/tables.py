@@ -58,7 +58,7 @@ class TunnelTable(NetBoxTable):
     side_b_assigned_object = tables.Column(
         linkify=True,
         orderable=False,
-        verbose_name="Side ABInterface",
+        verbose_name="Side B Interface",
     )
     class Meta(NetBoxTable.Meta):
         """Class to define what is used for tunnel_lists.html template to show configured tunnels."""
