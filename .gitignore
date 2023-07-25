@@ -136,7 +136,9 @@ dmypy.json
 .idea/misc.xml
 .idea/modules.xml
 .idea/netbox_tunnels_plugin.iml
+.idea/netbox-tunnels2.iml
 .idea/vcs.xml
+.idea/inspectionProfiles/Project_Default.xml
 .idea/inspectionProfiles/profiles_settings.xml
 .vscode/settings.json
 

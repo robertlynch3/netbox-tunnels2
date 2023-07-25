@@ -36,10 +36,11 @@ class TunnelTable(NetBoxTable):
     name = tables.Column(
         linkify=True
     )
-    tunnel_type=tables.Column(linkify=True)
+    tunnel_type = tables.Column(linkify=True)
     a_pub_address = tables.Column(linkify=True)
     b_pub_address = tables.Column(linkify=True)
     status = ChoiceFieldColumn()
+    tenant = tables.Column(linkify=True)
 
     side_a_host = tables.TemplateColumn(
         template_code=COL_SIDE_A_HOST_ASSIGNMENT,
@@ -67,6 +68,7 @@ class TunnelTable(NetBoxTable):
             'pk',
             'id',
             "name",
+            "tenant",
             "tunnel_type",
             "side_a_host",
             "side_a_assigned_object",

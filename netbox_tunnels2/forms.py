@@ -20,6 +20,7 @@ from django.core.exceptions import MultipleObjectsReturned, ObjectDoesNotExist, 
 from django.contrib.contenttypes.models import ContentType
 
 from netbox.forms import NetBoxModelForm, NetBoxModelFilterSetForm
+from tenancy.models import Tenant
 
 from .models import Tunnel, TunnelStatusChoices, TunnelType
 
@@ -37,22 +38,35 @@ class TunnelEditForm(NetBoxModelForm):
             queryset=TunnelType.objects.all(),
             required=True
     )
-    a_pub_VRF = DynamicModelChoiceField(label='Side A Address VRF', queryset=VRF.objects.all(),required=False)
+    a_pub_VRF = DynamicModelChoiceField(
+        label='Side A Address VRF',
+        queryset=VRF.objects.all(),
+        required=False,
+        selector=True,
+        query_params={
+            "tenant_id": "$tenant",
+        },
+    )
     a_pub_address = DynamicModelChoiceField(
         label='Side A Public IP Address',
         queryset=IPAddress.objects.all(),
         query_params={
             'vrf_id': '$a_pub_VRF',
-            'device_id':'$side_a_device'
+            'device_id': '$side_a_device'
         }
     )
-    b_pub_VRF = DynamicModelChoiceField(label='Side B Address VRF', queryset=VRF.objects.all(),required=False)
+    b_pub_VRF = DynamicModelChoiceField(
+        label='Side B Address VRF',
+        queryset=VRF.objects.all(),
+        selector=True,
+        required=False
+    )
     b_pub_address = DynamicModelChoiceField(
         label='Side B Public IP Address',
         queryset=IPAddress.objects.all(),
         query_params={
             'vrf_id': '$side_b_device',
-            'device_id':'$side_b_device'
+            'device_id': '$side_b_device'
         },
         required=False
     )
@@ -61,7 +75,11 @@ class TunnelEditForm(NetBoxModelForm):
     side_a_device = DynamicModelChoiceField(
         queryset=Device.objects.all(),
         label="Site A Device",
-        required=False
+        required=False,
+        selector=True,
+        query_params={
+            "tenant_id": "$tenant",
+        },
     )
     side_a_interface = DynamicModelChoiceField(
         queryset=Interface.objects.all(),
@@ -74,7 +92,8 @@ class TunnelEditForm(NetBoxModelForm):
     side_b_device = DynamicModelChoiceField(
         queryset=Device.objects.all(),
         label="Site B Device",
-        required=False
+        required=False,
+        selector=True,
     )
     side_b_interface = DynamicModelChoiceField(
         queryset=Interface.objects.all(),
@@ -113,6 +132,7 @@ class TunnelEditForm(NetBoxModelForm):
             "psk",
             'comments',
             'tags',
+            'tenant',
         )
     def clean(self):
         cleaned_data = super().clean()
@@ -172,6 +192,7 @@ class TunnelAddForm(TunnelEditForm):
             "psk",
             "comments",
             "tags",
+            "tenant",
         )
     field_order = ["name",
             "status",
@@ -181,6 +202,7 @@ class TunnelAddForm(TunnelEditForm):
             "b_pub_VRF",
             "b_pub_address",
             "psk",
+            "tenant",
             "comments",
             "tags"]
     
@@ -212,7 +234,7 @@ class TunnelFilterForm(NetBoxModelFilterSetForm):
     """Form for filtering Tunnel instances."""
     model = Tunnel
     status = MultipleChoiceField(choices=TunnelStatusChoices, required=False)
-    tunnel_type = tunnel_type = ModelChoiceField(
+    tunnel_type = ModelChoiceField(
             queryset=TunnelType.objects.all(),
             required=False
     )
@@ -226,6 +248,9 @@ class TunnelFilterForm(NetBoxModelFilterSetForm):
         required=False,
         label="Remote Address",
     )
+    tenant_id = DynamicModelMultipleChoiceField(
+        required=False, queryset=Tenant.objects.all(), label="Tenant"
+    )
     class Meta:
         """Class to define what is used for filtering tunnels with the search box."""
         model = Tunnel
@@ -234,6 +259,7 @@ class TunnelFilterForm(NetBoxModelFilterSetForm):
             "b_pub_address",
             "psk",
             "tunnel_type",
+            "tenant_id",
         )
 
 #
