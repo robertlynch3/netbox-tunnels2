@@ -31,26 +31,17 @@ COL_SIDE_B_HOST_ASSIGNMENT = """
     {% endif %}
  """
 
-class TunnelTable(NetBoxTable):
-    """Table for displaying configured Tunnel instances."""
+
+class RelatedTunnelTable(NetBoxTable):
+    """Table for displaying Tunnel instances related to an interface."""
     name = tables.Column(
         linkify=True
     )
     tunnel_type = tables.Column(linkify=True)
-    a_pub_address = tables.Column(linkify=True)
     b_pub_address = tables.Column(linkify=True)
     status = ChoiceFieldColumn()
     tenant = tables.Column(linkify=True)
 
-    side_a_host = tables.TemplateColumn(
-        template_code=COL_SIDE_A_HOST_ASSIGNMENT,
-        verbose_name="Side A Host",
-    )
-    side_a_assigned_object = tables.Column(
-        linkify=True,
-        orderable=False,
-        verbose_name="Side A Interface",
-    )
     side_b_host = tables.TemplateColumn(
         template_code=COL_SIDE_B_HOST_ASSIGNMENT,
         verbose_name="Side B Host",
@@ -60,8 +51,10 @@ class TunnelTable(NetBoxTable):
         orderable=False,
         verbose_name="Side B Interface",
     )
+
     class Meta(NetBoxTable.Meta):
-        """Class to define what is used for tunnel_lists.html template to show configured tunnels."""
+        """Class to define what is used for interface_extend.html template to show
+        tunnels related to an interface"""
 
         model = Tunnel
         fields = (
@@ -70,15 +63,38 @@ class TunnelTable(NetBoxTable):
             "name",
             "tenant",
             "tunnel_type",
-            "side_a_host",
-            "side_a_assigned_object",
             "side_b_host",
             "side_b_assigned_object",
             "status",
-            "a_pub_address",
             "b_pub_address"
         )
-        default_columns = ('name', 'status', 'tunnel_type', 'side_a_host', 'side_b_host','a_pub_address', 'b_pub_address')
+        default_columns = ('name', 'status', 'tunnel_type',
+                           'side_b_host', 'b_pub_address')
+
+
+class TunnelTable(RelatedTunnelTable):
+    """Table for displaying configured Tunnel instances."""
+    a_pub_address = tables.Column(linkify=True)
+    side_a_host = tables.TemplateColumn(
+        template_code=COL_SIDE_A_HOST_ASSIGNMENT,
+        verbose_name="Side A Host",
+    )
+    side_a_assigned_object = tables.Column(
+        linkify=True,
+        orderable=False,
+        verbose_name="Side A Interface",
+    )
+
+    class Meta(RelatedTunnelTable.Meta):
+        """Class to define what is used for tunnel_lists.html template to show configured tunnels."""
+
+        RelatedTunnelTable.Meta.fields += (
+            "side_a_host",
+            "side_a_assigned_object",
+            "a_pub_address",
+        )
+        RelatedTunnelTable.Meta.default_columns += ('side_a_host', 'a_pub_address')
+
 
 class TunnelTypeTable(NetBoxTable):
     """Table for displaying configured Tunnel instances."""
