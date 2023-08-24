@@ -65,15 +65,27 @@
               </thead>
               <tbody>
                 <tr class="even">
-                  <td>
-                    <a href="{{ object.side_a_assigned_object.device.get_absolute_url }}">{{ object.side_a_assigned_object.device|placeholder }}</a>
-                  </td>
+                  {% if object.side_a_assigned_object.device %}
+                      <td>
+                        <a href="{{ object.side_a_assigned_object.device.get_absolute_url }}">{{ object.side_a_assigned_object.device|placeholder }}</a>
+                      </td>
+                  {% elif object.side_a_assigned_object.virtual_machine %}
+                      <td>
+                        <a href="{{ object.side_a_assigned_object.virtual_machine.get_absolute_url }}">{{ object.side_a_assigned_object.virtual_machine|placeholder }}</a>
+                      </td>
+                  {% endif %}
                   <td>
                     <a href="{{ object.side_a_assigned_object.get_absolute_url }}">{{ object.side_a_assigned_object|placeholder }}</a>
                   </td>
-                  <td>
-                    <a href="{{ object.side_b_assigned_object.device.get_absolute_url }}">{{ object.side_b_assigned_object.device|placeholder }}</a>
-                  </td>
+                  {% if object.side_b_assigned_object.device %}
+                      <td>
+                        <a href="{{ object.side_b_assigned_object.device.get_absolute_url }}">{{ object.side_b_assigned_object.device|placeholder }}</a>
+                      </td>
+                  {% elif object.side_b_assigned_object.virtual_machine %}
+                      <td>
+                        <a href="{{ object.side_b_assigned_object.virtual_machine.get_absolute_url }}">{{ object.side_b_assigned_object.virtual_machine|placeholder }}</a>
+                      </td>
+                  {% endif %}
                   <td>
                     <a href="{{ object.side_b_assigned_object.get_absolute_url }}">{{ object.side_b_assigned_object|placeholder }}</a>
                   </td>

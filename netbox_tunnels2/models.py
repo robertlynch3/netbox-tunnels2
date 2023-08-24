@@ -105,7 +105,7 @@ class Tunnel(NetBoxModel):
         related_name='tunnel_a_pub_address',
         verbose_name="Side A Public Address"
     )
-    b_pub_address=models.ForeignKey(
+    b_pub_address = models.ForeignKey(
         to='ipam.IPAddress',
         on_delete=models.PROTECT,
         related_name='tunnel_b_pub_address',
