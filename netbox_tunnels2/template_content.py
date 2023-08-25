@@ -22,8 +22,9 @@ class InterfaceTunnels(PluginTemplateExtension):
             }
         )
 
+
 class VMInterfaceTunnels(PluginTemplateExtension):
-    model = 'virtualization.interfaces'
+    model = 'virtualization.vminterface'
 
     def full_width_page(self):
         obj = self.context.get('object')
