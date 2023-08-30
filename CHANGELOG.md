@@ -1,4 +1,9 @@
 # Changelog
+## 0.2.7 (2023-08-30)
+* Add related tunnels to side A interfaces by @p-rintz in https://github.com/robertlynch3/netbox-tunnels2/pull/14
+* Fix permissions for non-admin users by @p-rintz in https://github.com/robertlynch3/netbox-tunnels2/pull/16
+* Allow VM assignment to tunnels by @p-rintz in https://github.com/robertlynch3/netbox-tunnels2/pull/18
+
 ## 0.2.6 (2023-07-25)
 * Add Tenancy support to tunnels by @p-rintz in https://github.com/robertlynch3/netbox-tunnels2/pull/12
 * Fix title & align custom fields in template by @p-rintz in https://github.com/robertlynch3/netbox-tunnels2/pull/13
