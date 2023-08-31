@@ -1,4 +1,7 @@
 # Changelog
+## 0.2.8 (2023-08-30)
+* Added Netbox 3.6 support
+
 ## 0.2.7 (2023-08-30)
 * Add related tunnels to side A interfaces by @p-rintz in https://github.com/robertlynch3/netbox-tunnels2/pull/14
 * Fix permissions for non-admin users by @p-rintz in https://github.com/robertlynch3/netbox-tunnels2/pull/16
