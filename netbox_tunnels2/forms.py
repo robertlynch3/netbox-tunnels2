@@ -185,18 +185,18 @@ class TunnelEditForm(NetBoxModelForm):
         )
 
     def clean(self):
-        cleaned_data = super().clean()
+        super().clean()
         error_message = {}
-        name = cleaned_data.get("name")
-        status = cleaned_data.get("status")
-        tunnel_type = cleaned_data.get("tunnel_type")
-        a_pub_address = cleaned_data.get("a_pub_address")
-        b_pub_address = cleaned_data.get("b_pub_address")
-        psk = cleaned_data.get("psk")
-        side_a_device_interface = cleaned_data.get("side_a_device_interface")
-        side_a_vm_interface = cleaned_data.get("side_a_vm_interface")
-        side_b_device_interface = cleaned_data.get("side_b_device_interface")
-        side_b_vm_interface = cleaned_data.get("side_b_vm_interface")
+        name = self.cleaned_data['name']
+        status = self.cleaned_data['status']
+        tunnel_type = self.cleaned_data['tunnel_type']
+        a_pub_address = self.cleaned_data['a_pub_address']
+        b_pub_address = self.cleaned_data['b_pub_address']
+        psk = self.cleaned_data['psk']
+        side_a_device_interface = self.cleaned_data['side_a_device_interface']
+        side_a_vm_interface = self.cleaned_data['side_a_vm_interface']
+        side_b_device_interface = self.cleaned_data['side_b_device_interface']
+        side_b_vm_interface = self.cleaned_data['side_b_vm_interface']
 
         # Check that interface or vminterface are set
         # if either the Side A or Side B interfaces are assigned
