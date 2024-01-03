@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://robertlynch3.github.io/netbox_tunnels_plugin/</loc>
+         <lastmod>2024-01-03</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://robertlynch3.github.io/netbox_tunnels_plugin/changelog/</loc>
+         <lastmod>2024-01-03</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://robertlynch3.github.io/netbox_tunnels_plugin/contributing/</loc>
+         <lastmod>2024-01-03</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+</urlset>
