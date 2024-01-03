@@ -1,7 +1,7 @@
 # Changelog
 ## 0.2.9 (2024-01-03)
 * Added Netbox 3.7 support
-* Renamed the Tunnel model to PluginTunnel to allow for compatibility with Netbox v3.7
+* Renamed the Tunnel model to PluginTunnel to allow for compatibility with Netbox v3.7<br>
 Please plan to migrate from `netbox-tunnels2` to the native [Netbox VPN Tunnels model](https://docs.netbox.dev/en/stable/features/vpn-tunnels/)
 
 ## 0.2.8 (2023-08-30)
