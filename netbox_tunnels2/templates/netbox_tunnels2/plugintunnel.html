@@ -1,0 +1,112 @@
+{% extends 'generic/object.html' %}
+{% load plugins %}
+{% block content %}
+  <div class="row mb-3">
+    <div class="col col-md-6">
+      <div class="card">
+        <h5 class="card-header">Tunnel</h5>
+        <div class="card-body">
+          <table class="table table-hover attr-table">
+            <tr>
+              <th scope="row">Name</th>
+              <td>{{ object.name }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Status</th>
+              <td>{% badge object.get_status_display bg_color=object.get_status_color %}</td>
+            </tr>
+            <tr>
+              <th scope="row">Tunnel Type</th>
+              <td>{{ object.tunnel_type|linkify|placeholder }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Local Address</th>
+              <td>{{ object.a_pub_address|linkify|placeholder }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Remote Address</th>
+              <td>{{ object.b_pub_address|linkify|placeholder }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Pre Shared Key</th>
+              <td>{{ object.psk|placeholder }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Tenant</th>
+              <td>{{ object.tenant|linkify|placeholder }}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      {% include 'inc/panels/custom_fields.html' %}
+      {% plugin_left_page object %}
+    </div>
+    <div class="col col-md-6">
+      {% include 'inc/panels/tags.html' %}
+      {% include 'inc/panels/comments.html' %}
+      {% plugin_right_page object %}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col col-md-12">
+      <div class="card">
+        <h5 class="card-header">Endpoints</h5>
+        <div class="card-body table-responsive">
+          <!-- Table object for the Endpoints -->
+          <div class="table-container"> 
+            <table class="table table-hover object-list">
+              <thead>
+                <tr>
+                  <th>Side A Device</th>
+                  <th>Side A Inside Interface</th>
+                  <th>Side B Device</th>
+                  <th>Side B Inside Interface</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="even">
+                  {% if object.side_a_assigned_object.device %}
+                      <td>
+                        <a href="{{ object.side_a_assigned_object.device.get_absolute_url }}">{{ object.side_a_assigned_object.device|placeholder }}</a>
+                      </td>
+                  {% elif object.side_a_assigned_object.virtual_machine %}
+                      <td>
+                        <a href="{{ object.side_a_assigned_object.virtual_machine.get_absolute_url }}">{{ object.side_a_assigned_object.virtual_machine|placeholder }}</a>
+                      </td>
+                  {% endif %}
+                  <td>
+                    <a href="{{ object.side_a_assigned_object.get_absolute_url }}">{{ object.side_a_assigned_object|placeholder }}</a>
+                  </td>
+                  {% if object.side_b_assigned_object.device %}
+                      <td>
+                        <a href="{{ object.side_b_assigned_object.device.get_absolute_url }}">{{ object.side_b_assigned_object.device|placeholder }}</a>
+                      </td>
+                  {% elif object.side_b_assigned_object.virtual_machine %}
+                      <td>
+                        <a href="{{ object.side_b_assigned_object.virtual_machine.get_absolute_url }}">{{ object.side_b_assigned_object.virtual_machine|placeholder }}</a>
+                      </td>
+                  {% endif %}
+                  <td>
+                    <a href="{{ object.side_b_assigned_object.get_absolute_url }}">{{ object.side_b_assigned_object|placeholder }}</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col col-md-6">
+
+    
+
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col col-md-12">
+      {% plugin_full_width_page object %}
+    </div>
+  </div>
+{% endblock content %}

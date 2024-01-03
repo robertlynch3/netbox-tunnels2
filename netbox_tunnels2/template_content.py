@@ -1,5 +1,5 @@
 from extras.plugins import PluginTemplateExtension
-from .models import Tunnel
+from .models import PluginTunnel
 from .tables import RelatedTunnelTable
 from django.contrib.contenttypes.models import ContentType
 
@@ -10,7 +10,7 @@ class InterfaceTunnels(PluginTemplateExtension):
     def full_width_page(self):
         obj = self.context.get('object')
         types = ContentType.objects.get_for_model(obj)
-        tunnel = Tunnel.objects.filter(
+        tunnel = PluginTunnel.objects.filter(
             side_a_assigned_object_type=types,
             side_a_assigned_object_id=obj.id,
         )
@@ -29,7 +29,7 @@ class VMInterfaceTunnels(PluginTemplateExtension):
     def full_width_page(self):
         obj = self.context.get('object')
         types = ContentType.objects.get_for_model(obj)
-        tunnel = Tunnel.objects.filter(
+        tunnel = PluginTunnel.objects.filter(
             side_a_assigned_object_type=types,
             side_a_assigned_object_id=obj.id,
         )

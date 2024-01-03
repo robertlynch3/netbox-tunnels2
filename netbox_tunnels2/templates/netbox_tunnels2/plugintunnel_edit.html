@@ -1,0 +1,114 @@
+{% extends 'generic/object_edit.html' %}
+{% load static %}
+{% load form_helpers %}
+
+{% block form %}
+{% render_errors form %}
+<div class="field-group">
+  <h4>Tunnel Details</h4>
+  {% render_field form.name %}
+  {% render_field form.status %}
+  {% render_field form.tunnel_type %}
+  {% render_field form.psk %}
+  {% render_field form.tenant %}
+</div>
+<div class="field-group">
+    <h4>Side A Host</h4>
+        <ul class="nav nav-pills" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button
+                    role="tab"
+                    type="button"
+                    id="device_a_tab"
+                    data-bs-toggle="tab"
+                    class="nav-link {% if not form.initial.side_a_virtual_chassis and not form.initial.side_a_virtual_machine %}active{% endif %}"
+                    data-bs-target="#side_a_device"
+                    aria-controls="side_a_device"
+                >
+                    Device
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button
+                    role="tab"
+                    type="button"
+                    id="vm_a_tab"
+                    data-bs-toggle="tab"
+                    class="nav-link {% if form.initial.side_a_virtual_machine %}active{% endif %}"
+                    data-bs-target="#side_a_virtual_machine"
+                    aria-controls="side_a_virtual_machine"
+                >
+                    Virtual Machine
+                </button>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane{% if not form.initial.side_a_virtual_chassis and not form.initial.side_a_virtual_machine %} active{% endif %}" id="side_a_device">
+                {% render_field form.side_a_device %}
+                {% render_field form.side_a_device_interface %}
+            </div>
+            <div class="tab-pane{% if form.initial.side_a_virtual_machine %} active{% endif %}" id="side_a_virtual_machine">
+                {% render_field form.side_a_virtual_machine %}
+                {% render_field form.side_a_vm_interface %}
+            </div>
+                {% render_field form.a_pub_VRF %}
+                {% render_field form.a_pub_address %}
+    </div>
+</div>
+
+<div class="field-group">
+    <h4>Side B Host</h4>
+        <ul class="nav nav-pills" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button
+                    role="tab"
+                    type="button"
+                    id="device_b_tab"
+                    data-bs-toggle="tab"
+                    class="nav-link {% if not form.initial.side_b_virtual_chassis and not form.initial.side_b_virtual_machine %}active{% endif %}"
+                    data-bs-target="#side_b_device"
+                    aria-controls="side_b_device"
+                >
+                    Device
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button
+                    role="tab"
+                    type="button"
+                    id="vm_b_tab"
+                    data-bs-toggle="tab"
+                    class="nav-link {% if form.initial.side_b_virtual_machine %}active{% endif %}"
+                    data-bs-target="#side_b_virtual_machine"
+                    aria-controls="side_b_virtual_machine"
+                >
+                    Virtual Machine
+                </button>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane{% if not form.initial.side_b_virtual_chassis and not form.initial.side_b_virtual_machine %} active{% endif %}" id="side_b_device">
+                {% render_field form.side_b_device %}
+                {% render_field form.side_b_device_interface %}
+            </div>
+            <div class="tab-pane{% if form.initial.side_b_virtual_machine %} active{% endif %}" id="side_b_virtual_machine">
+                {% render_field form.side_b_virtual_machine %}
+                {% render_field form.side_b_vm_interface %}
+            </div>
+                {% render_field form.b_pub_VRF %}
+                {% render_field form.b_pub_address %}
+    </div>
+</div>
+
+{% if form.custom_fields %}
+    <div class="field-group">
+        <h4>Custom Fields</h4>
+            {% render_custom_fields form %}
+    </div>
+{% endif %}
+
+<div class="field-group">
+    <h4>Comments</h4>
+    {% render_field form.comments %}
+</div>
+{% endblock %}

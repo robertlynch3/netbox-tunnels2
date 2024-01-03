@@ -3,7 +3,7 @@ from django.db import IntegrityError, transaction
 from django.test import TestCase
 from django.contrib.contenttypes.models import ContentType
 
-from netbox_tunnels2.models import Tunnel, TunnelType
+from netbox_tunnels2.models import PluginTunnel, TunnelType
 from dcim.models import Site, DeviceRole, DeviceType, Manufacturer, Device, Interface
 from ipam.models import IPAddress
 from virtualization.models import VirtualMachine, VMInterface
@@ -34,7 +34,7 @@ class TunnelTestCase(TestCase):
         self.vminterface.ip_addresses.add(self.ipAddressB)
 
     def test_tunnel_creation(self):
-        tunnel1 = Tunnel.objects.create(name='Test Tunnel1',
+        tunnel1 = PluginTunnel.objects.create(name='Test Tunnel1',
                                         tunnel_type=self.tunnelType1,
                                         a_pub_address=self.ipAddressA,
                                         tenant=self.tenant)
@@ -45,14 +45,14 @@ class TunnelTestCase(TestCase):
         # Tests an (invalid) Null for a_pub_address
         with self.assertRaises(IntegrityError):
             with transaction.atomic():
-                Tunnel.objects.create(name='Test Tunnel2', tunnel_type=self.tunnelType1, b_pub_address=self.ipAddressA)
+                PluginTunnel.objects.create(name='Test Tunnel2', tunnel_type=self.tunnelType1, b_pub_address=self.ipAddressA)
 
-        tunnel3 = Tunnel.objects.create(name='Test Tunnel3', tunnel_type=self.tunnelType1, a_pub_address=self.ipAddressA, b_pub_address=self.ipAddressB)
+        tunnel3 = PluginTunnel.objects.create(name='Test Tunnel3', tunnel_type=self.tunnelType1, a_pub_address=self.ipAddressA, b_pub_address=self.ipAddressB)
         self.assertEqual(tunnel3.a_pub_address, self.ipAddressA)
         self.assertEqual(tunnel3.b_pub_address, self.ipAddressB)
 
     def test_tunnel_creation_sides(self):
-        tunnel = Tunnel.objects.create(name='Test Tunnel1',
+        tunnel = PluginTunnel.objects.create(name='Test Tunnel1',
                                        tunnel_type=self.tunnelType1,
                                        a_pub_address=self.ipAddressA,
                                        b_pub_address=self.ipAddressB,

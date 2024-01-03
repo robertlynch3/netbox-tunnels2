@@ -1,8 +1,8 @@
 from django.contrib import admin
-from .models import Tunnel, TunnelType
+from .models import PluginTunnel, TunnelType
 
 
-@admin.register(Tunnel)
+@admin.register(PluginTunnel)
 class TunnelAdmin(admin.ModelAdmin):
     """Administrative view for managing Tunnels instances."""
 

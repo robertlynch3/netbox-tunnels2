@@ -6,12 +6,13 @@ from . import models
 
 urlpatterns = (
     path("tunnel/", views.ListTunnelView.as_view(), name="tunnel_list"),
+    path("tunnel/", views.ListTunnelView.as_view(), name="plugintunnel_list"),
     path("tunnel/<int:pk>/", views.TunnelView.as_view(), name="tunnel"),
-    path("tunnel/<int:pk>/edit/", views.EditTunnelView.as_view(), name="tunnel_edit"),
-    path("tunnel/<int:pk>/delete/", views.DeleteTunnelView.as_view(), name="tunnel_delete"),
-    path("tunnel/<int:pk>/changelog/", ObjectChangeLogView.as_view(), name="tunnel_changelog", kwargs={'model': models.TunnelType}),
-    path("tunnel/add/", views.CreateTunnelView.as_view(), name="tunnel_add"),
-    path("tunnel/delete/", views.BulkDeleteTunnelView.as_view(), name="tunnel_bulk_delete"),
+    path("tunnel/<int:pk>/edit/", views.EditTunnelView.as_view(), name="plugintunnel_edit"),
+    path("tunnel/<int:pk>/delete/", views.DeleteTunnelView.as_view(), name="plugintunnel_delete"),
+    path("tunnel/<int:pk>/changelog/", ObjectChangeLogView.as_view(), name="plugintunnel_changelog", kwargs={'model': models.TunnelType}),
+    path("tunnel/add/", views.CreateTunnelView.as_view(), name="plugintunnel_add"),
+    path("tunnel/delete/", views.BulkDeleteTunnelView.as_view(), name="plugintunnel_bulk_delete"),
     
     path("tunnel-type/", views.ListTunnelTypeView.as_view(), name="tunneltype_list"),
     path("tunnel-type/<int:pk>/", views.TunnelTypeView.as_view(), name="tunneltype"),

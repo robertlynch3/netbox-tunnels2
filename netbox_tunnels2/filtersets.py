@@ -2,7 +2,7 @@ import django_filters
 from netbox.filtersets import NetBoxModelFilterSet
 from dcim.models import Interface
 from tenancy.models import Tenant
-from .models import Tunnel, TunnelType
+from .models import PluginTunnel, TunnelType
 
 
 class TunnelFilterSet(NetBoxModelFilterSet):
@@ -36,7 +36,7 @@ class TunnelFilterSet(NetBoxModelFilterSet):
     )
 
     class Meta:
-        model = Tunnel
+        model = PluginTunnel
         fields = (
             "name",
             "status",

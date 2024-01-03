@@ -13,7 +13,7 @@ limitations under the License.
 """
 import django_tables2 as tables
 from netbox.tables import NetBoxTable, ChoiceFieldColumn, columns
-from .models import Tunnel, TunnelType
+from .models import PluginTunnel, TunnelType
 
 
 COL_SIDE_A_HOST_ASSIGNMENT = """
@@ -56,7 +56,7 @@ class RelatedTunnelTable(NetBoxTable):
         """Class to define what is used for interface_extend.html template to show
         tunnels related to an interface"""
 
-        model = Tunnel
+        model = PluginTunnel
         fields = (
             'pk',
             'id',

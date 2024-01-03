@@ -1,20 +1,10 @@
 # Netbox Tunnels Plugin
 This plugin is a fork of [jdrew82/netbox-tunnels-plugin](https://github.com/jdrew82/netbox-tunnels-plugin) and [hiddenman/netbox-tunnels-plugin](https://github.com/hiddenman/netbox-tunnels-plugin) in an effort to support Netbox 3.4+. 
+<br><br><br>
+**In Netbox 3.7, official Tunnel support was added. Please transition to using the build in feature.**
+<br><br><br>
 
-<!-- Build status with linky to the builds for ease of access.
-[![Build Status](https://travis-ci.com/jdrew82/netbox-tunnels-plugin.svg?token=XHesDxGFcPtaq1Q3URi5&branch=master)](https://travis-ci.com/jdrew82/netbox-tunnels-plugin)
- -->
-<!-- PyPI version badge.
-[![PyPI version](https://badge.fury.io/py/netbox-tunnels-plugin.svg)](https://badge.fury.io/py/netbox-tunnels-plugin)
-
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-+NOTE: Please be aware that this plugin is still a work in progress and should not be used for production work at this time!+
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-A plugin for [NetBox](https://github.com/netbox-community/netbox) to support documentation of network tunneling
- protocols, ie IPsec, GRE, L2TP, etc.
- -->
- ## Features
+## Features
 This plugin provide following Models:
 * Tunnels
 * Tunnel Types
@@ -25,9 +15,10 @@ This plugin provide following Models:
 |:--------------:|:--------------:|
 |   NetBox 3.4   |      0.2.2     |
 |   NetBox 3.5   |      0.2.3     |
-|   NetBox 3.6 >   |      0.2.8     |
+|   NetBox 3.6   |      0.2.8     |
+|   NetBox 3.7 >   |      0.2.9     |
 
-This is currently a work in progress.
+
 ## Installation
 You can install this package from Pip
 ```

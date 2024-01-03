@@ -2,11 +2,11 @@ from rest_framework import serializers
 
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.contenttypes.models import ContentType
-from ..constants import *
+from ..constants import TUNNEL_INTERFACE_ASSIGNMENT_MODELS
 from netbox.api.fields import ContentTypeField
 
 from netbox.api.serializers import NetBoxModelSerializer, WritableNestedSerializer
-from ..models import Tunnel, TunnelType
+from ..models import PluginTunnel, TunnelType
 
 
 from netbox.constants import NESTED_SERIALIZER_PREFIX
@@ -17,7 +17,7 @@ class NestedTunnelSerializer(WritableNestedSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='plugins-api:netbox_tunnels2-api:tunnel-detail')
 
     class Meta:
-        model = Tunnel
+        model = PluginTunnel
         fields = (
             'id', 
             'url', 
@@ -38,7 +38,7 @@ class TunnelSerializer(NetBoxModelSerializer):
     side_a_assigned_object = serializers.SerializerMethodField(read_only=True)
     side_b_assigned_object = serializers.SerializerMethodField(read_only=True)
     class Meta:
-        model = Tunnel
+        model = PluginTunnel
         fields = (
             'id', 
             'url', 

@@ -6,7 +6,7 @@ from . import filtersets, models
 
 class TunnelType(NetBoxObjectType):
     class Meta:
-        model=models.Tunnel
+        model=models.PluginTunnel
         fields = "__all__"
         filterset_class = filtersets.TunnelFilterSet
 class TunnelTypeType(NetBoxObjectType):

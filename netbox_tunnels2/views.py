@@ -7,14 +7,14 @@ from . import forms, models, tables, filtersets
 
 class TunnelView(PermissionRequiredMixin, ObjectView):
     permission_required = "netbox_tunnels2.view_tunnel"
-    queryset = models.Tunnel.objects.all()
+    queryset = models.PluginTunnel.objects.all()
 
 class ListTunnelView(PermissionRequiredMixin, ObjectListView):
     """View for listing all Tunnels."""
 
     permission_required = "netbox_tunnels2.view_tunnel"
-    model = models.Tunnel
-    queryset = models.Tunnel.objects.all().order_by("id")
+    model = models.PluginTunnel
+    queryset = models.PluginTunnel.objects.all().order_by("id")
     filterset = filtersets.TunnelFilterSet
     filterset_form = forms.TunnelFilterForm
     table = tables.TunnelTable
@@ -24,8 +24,8 @@ class EditTunnelView(PermissionRequiredMixin, ObjectEditView):
     """View for creating a new Tunnels."""
 
     permission_required = "netbox_tunnels2.change_tunnel"
-    model = models.Tunnel
-    queryset = models.Tunnel.objects.all()
+    model = models.PluginTunnel
+    queryset = models.PluginTunnel.objects.all()
     form = forms.TunnelEditForm
     default_return_url = "plugins:netbox_tunnels2:tunnel_list"
     template_name = "netbox_tunnels2/tunnel_edit.html"
@@ -33,8 +33,8 @@ class EditTunnelView(PermissionRequiredMixin, ObjectEditView):
 class CreateTunnelView(PermissionRequiredMixin, ObjectEditView):
     """View for creating a new Tunnels."""
     permission_required = "netbox_tunnels2.add_tunnel"
-    model = models.Tunnel
-    queryset = models.Tunnel.objects.all()
+    model = models.PluginTunnel
+    queryset = models.PluginTunnel.objects.all()
     #form = forms.TunnelAddForm
     form = forms.TunnelEditForm
     default_return_url = "plugins:netbox_tunnels2:tunnel_list"
@@ -42,14 +42,14 @@ class CreateTunnelView(PermissionRequiredMixin, ObjectEditView):
 
 class DeleteTunnelView(PermissionRequiredMixin,ObjectDeleteView):
     permission_required = "netbox_tunnels2.delete_tunnel"
-    queryset = models.Tunnel.objects.all()
+    queryset = models.PluginTunnel.objects.all()
     default_return_url = "plugins:netbox_tunnels2:tunnel_list"
 
 class BulkDeleteTunnelView(PermissionRequiredMixin, BulkDeleteView):
     """View for deleting one or more Tunnels."""
 
     permission_required = "netbox_tunnels2.delete_tunnel"
-    queryset = models.Tunnel.objects.filter()
+    queryset = models.PluginTunnel.objects.filter()
     table = tables.TunnelTable
     default_return_url = "plugins:netbox_tunnels2:tunnel_list"
 
@@ -73,7 +73,7 @@ class ListTunnelTypeView(PermissionRequiredMixin, ObjectListView):
     """View for listing all Tunnels."""
     permission_required = "netbox_tunnels2.view_tunneltype"
     model = models.TunnelType
-    queryset = models.TunnelType.objects.annotate(tunnel_count=count_related(models.Tunnel,'tunnel_type'))
+    queryset = models.TunnelType.objects.annotate(tunnel_count=count_related(models.PluginTunnel,'tunnel_type'))
     table = tables.TunnelTypeTable
     
 

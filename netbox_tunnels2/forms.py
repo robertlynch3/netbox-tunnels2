@@ -23,7 +23,7 @@ from django.contrib.contenttypes.models import ContentType
 from netbox.forms import NetBoxModelForm, NetBoxModelFilterSetForm
 from tenancy.models import Tenant
 
-from .models import Tunnel, TunnelStatusChoices, TunnelType
+from .models import PluginTunnel, TunnelStatusChoices, TunnelType
 
 
 class TunnelEditForm(NetBoxModelForm):
@@ -171,7 +171,7 @@ class TunnelEditForm(NetBoxModelForm):
     class Meta:
         """Class to define what is used to create a new network tunnel."""
 
-        model = Tunnel
+        model = PluginTunnel
         fields = (
             "name",
             "status",
@@ -302,7 +302,7 @@ class TunnelAddForm(TunnelEditForm):
 
 class TunnelFilterForm(NetBoxModelFilterSetForm):
     """Form for filtering Tunnel instances."""
-    model = Tunnel
+    model = PluginTunnel
     status = MultipleChoiceField(choices=TunnelStatusChoices, required=False)
     tenant_id = DynamicModelMultipleChoiceField(
         required=False, queryset=Tenant.objects.all(), label="Tenant"
@@ -324,7 +324,7 @@ class TunnelFilterForm(NetBoxModelFilterSetForm):
 
     class Meta:
         """Class to define what is used for filtering tunnels with the search box."""
-        model = Tunnel
+        model = PluginTunnel
         fields = (
             "a_pub_address",
             "b_pub_address",

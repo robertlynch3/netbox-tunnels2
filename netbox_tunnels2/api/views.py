@@ -11,7 +11,7 @@ from .serializers import TunnelSerializer, TunnelTypeSerializer
 
 
 class TunnelViewSet(NetBoxModelViewSet):
-    queryset = models.Tunnel.objects.all()
+    queryset = models.PluginTunnel.objects.all()
     serializer_class = TunnelSerializer
     filterset_class = filtersets.TunnelFilterSet
 

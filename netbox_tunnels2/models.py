@@ -58,7 +58,7 @@ class TunnelType(OrganizationalModel):
         return reverse('plugins:netbox_tunnels2:tunneltype', args=[self.pk])
 
 
-class Tunnel(NetBoxModel):
+class PluginTunnel(NetBoxModel):
     """Tunnel model."""
     name = models.CharField(max_length=64)
     status = models.CharField(max_length=30, choices=TunnelStatusChoices, default='pending-config')
@@ -139,25 +139,25 @@ class Tunnel(NetBoxModel):
 
 
 GenericRelation(
-    to=Tunnel,
+    to=PluginTunnel,
     content_type_field="side_a_assigned_object_type",
     object_id_field="side_a_assigned_object_id",
     related_query_name="interface",
 ).contribute_to_class(Interface, "tunnelassignments")
 GenericRelation(
-    to=Tunnel,
+    to=PluginTunnel,
     content_type_field="side_a_assigned_object_type",
     object_id_field="side_a_assigned_object_id",
     related_query_name="device",
 ).contribute_to_class(Device, "tunnels")
 GenericRelation(
-    to=Tunnel,
+    to=PluginTunnel,
     content_type_field="side_b_assigned_object_type",
     object_id_field="side_b_assigned_object_id",
     related_query_name="interface",
 ).contribute_to_class(Interface, "tunnelassignments_b")
 GenericRelation(
-    to=Tunnel,
+    to=PluginTunnel,
     content_type_field="side_b_assigned_object_type",
     object_id_field="side_b_assigned_object_id",
     related_query_name="device",

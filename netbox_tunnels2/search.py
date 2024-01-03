@@ -1,5 +1,5 @@
 from netbox.search import SearchIndex, register_search
-from .models import Tunnel, TunnelType
+from .models import PluginTunnel, TunnelType
 
 @register_search
 class TunnelTypeIndex(SearchIndex):
@@ -9,7 +9,7 @@ class TunnelTypeIndex(SearchIndex):
     )
 @register_search
 class TunnelIndex(SearchIndex):
-    model=Tunnel
+    model=PluginTunnel
     fields = (
         ('name', 100),
         ('a_pub_address', 150),
